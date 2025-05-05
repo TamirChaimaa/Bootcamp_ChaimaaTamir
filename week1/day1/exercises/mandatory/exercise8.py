@@ -8,36 +8,21 @@
 
 # One by one, remove each sandwich from the sandwich_orders while adding them to the finished_sandwiches list.
 # After all the sandwiches have been made, print a message listing each sandwich that was made, such as:
+# Initial list of sandwich orders
+sandwich_orders = ["Tuna sandwich", "Pastrami sandwich", "Avocado sandwich", "Pastrami sandwich", "Egg sandwich", "Chicken sandwich", "Pastrami sandwich"]
 
-# Liste initiale des commandes
-sandwich_orders = [
-    "Tuna sandwich",
-    "Pastrami sandwich",
-    "Avocado sandwich",
-    "Pastrami sandwich",
-    "Egg sandwich",
-    "Chicken sandwich",
-    "Pastrami sandwich"
-]
-
-print("Sorry, the deli has run out of Pastrami.\n")
-
-# Supprimer tous les "Pastrami sandwich"
+# Step 1: Remove all "Pastrami sandwich" using a while loop
 while "Pastrami sandwich" in sandwich_orders:
     sandwich_orders.remove("Pastrami sandwich")
 
-# Liste des sandwichs préparés
+# Step 2-4: Process the remaining orders
 finished_sandwiches = []
 
-# Préparer les sandwichs restants
+# Remove sandwiches from sandwich_orders and add to finished_sandwiches
 while sandwich_orders:
-    sandwich = sandwich_orders.pop(0)  # retirer le premier sandwich
-    print(f"I made your {sandwich.lower()}.")
-    finished_sandwiches.append(sandwich)
-
-# Affichage final
-print("\nAll sandwiches have been made:")
+    current_sandwich = sandwich_orders.pop(0)
+    finished_sandwiches.append(current_sandwich)
+    
+# Step 5: Print message for each sandwich made
 for sandwich in finished_sandwiches:
-    print(f"- {sandwich}")
-
-
+    print(f"I made your {sandwich.lower()}")
