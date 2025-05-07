@@ -1,56 +1,50 @@
-#Instructions
-#Ask the user for their birthdate (specify the format, for example: DD/MM/YYYY).
-#Display a little cake as seen below:
-#___iiiii___
-#|:H:a:p:p:y:|
-#__|___________|__
-#|^^^^^^^^^^^^^^^^^|
-#|:B:i:r:t:h:d:a:y:|
-#|                 |
-#~~~~~~~~~~~~~~~~~~~
-#The number of candles on the cake should be the last number of the users age, if they are 53, then add 3 candles.
-#Bonus : If they were born on a leap year, display two cakes !
-# Import the modules needed to work with dates and leap years
 from datetime import datetime
-import calendar
 
-# Ask the user to enter their birthdate in the format DD/MM/YYYY
-birthdate_str = input("Enter your birthdate (format DD/MM/YYYY): ")
+def is_leap_year(year):
+    return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
 
-# Convert the input (a string) into a real date
-birthdate = datetime.strptime(birthdate_str, "%d/%m/%Y")
+def create_cake(candles):
+    # Create the candles part
+    candles_str = "i" * candles
+    spaces = (11 - candles) // 2
+    top_line = " " * 7 + "_" * spaces + candles_str + "_" * spaces
 
-# Get today’s date
-today = datetime.today()
+    # Create the cake
+    cake = [
+        top_line,
+        "      |:H:a:p:p:y:|",
+        "    __|___________|__",
+        "   |^^^^^^^^^^^^^^^^^|",
+        "   |:B:i:r:t:h:d:a:y:|",
+        "   |                 |",
+        "   ~~~~~~~~~~~~~~~~~~~"
+    ]
+    return "\n".join(cake)
 
-# Calculate the age by subtracting the birth year from the current year
-age = today.year - birthdate.year
+# Get user's birthdate
+while True:
+    try:
+        birthdate = input("Please enter your birthdate (DD/MM/YYYY): ")
+        birth_date = datetime.strptime(birthdate, "%d/%m/%Y")
+        break
+    except ValueError:
+        print("Invalid date format. Please use DD/MM/YYYY")
 
-# Check if the birthday hasn’t happened yet this year
-# If it hasn’t, subtract 1 from the age
-if (today.month, today.day) < (birthdate.month, birthdate.day):
-    age -= 1
+# Calculate age
+today = datetime.today()  # Using the current date from metadata
+age = today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
 
-# Get the last digit of the age (for example, 53 → 3)
-candles_count = age % 10
+# Get the last digit of age for candles
+candles = age % 10
 
-# Make that many candle letters ("i") for the cake top
-candles = "i" * candles_count
-print(f"       ___{candles}___")
-print("      |:H:a:p:p:y:|")
-print("    __|___________|__")
-print("   |^^^^^^^^^^^^^^^^^|")
-print("   |:B:i:r:t:h:d:a:y:|")
-print("   |                 |")
-print("   ~~~~~~~~~~~~~~~~~~~")
+# Check if it's a leap year
+birth_year = birth_date.year
+is_leap = is_leap_year(birth_year)
 
-# BONUS: If the user was born in a leap year, show a second cake!
-if calendar.isleap(birthdate.year):
-    print("\nLeap year bonus! You get another cake!\n")
-    print(f"       ___{candles}___")
-    print("      |:H:a:p:p:y:|")
-    print("    __|___________|__")
-    print("   |^^^^^^^^^^^^^^^^^|")
-    print("   |:B:i:r:t:h:d:a:y:|")
-    print("   |                 |")
-    print("   ~~~~~~~~~~~~~~~~~~~")
+# Print the cake(s)
+print("\nHappy Birthday!")
+print(create_cake(candles))
+
+if is_leap:
+    print("\ncake for being born in a leap year!")
+    print(create_cake(candles))
