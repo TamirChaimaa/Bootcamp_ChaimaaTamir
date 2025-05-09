@@ -6,10 +6,10 @@ def get_user_menu_choice():
     print("\nMenu:")
     print("g Play a new game")
     print("s Show scores until now")
-    print("q show scores and quit")
+    print("x show scores and quit")
     
     choice = input("Enter your choice: ").lower()
-    if choice not in ['g','s','q']:
+    if choice not in ['g','s','x']:
         choice = input("Enter your choice: ").lower()
     return choice
     
@@ -51,7 +51,7 @@ def main():
         elif choice == 's':
             print_results(results)
         
-        elif choice == 'q':
+        elif choice == 'x':
             print_results(results)
             break
 
