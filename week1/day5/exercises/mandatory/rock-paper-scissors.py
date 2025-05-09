@@ -9,7 +9,7 @@ def get_user_menu_choice():
     print("q show scores and quit")
     
     choice = input("Enter your choice: ").lower()
-    while choice not in ['g','s','q']:
+    if choice not in ['g','s','q']:
         choice = input("Enter your choice: ").lower()
     return choice
     
