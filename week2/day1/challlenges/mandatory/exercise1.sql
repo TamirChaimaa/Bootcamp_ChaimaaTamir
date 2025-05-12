@@ -1,4 +1,4 @@
-CREATE DATABASE Hollywoods
+--CREATE DATABASE Hollywood;
 
 CREATE TABLE actors(
  actor_id SERIAL PRIMARY KEY,
@@ -6,7 +6,8 @@ CREATE TABLE actors(
  last_name VARCHAR (100) NOT NULL,
  age DATE NOT NULL,
  number_oscars SMALLINT NOT NULL
-)
+);
+
 INSERT INTO actors (first_name, last_name, age, number_oscars)
 VALUES ('Matt','Damon','1970-10-08', 5);
 
