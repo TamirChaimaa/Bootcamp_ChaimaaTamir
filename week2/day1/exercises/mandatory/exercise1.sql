@@ -1,6 +1,6 @@
 -- Database: public
 
-CREATE DATABASE public;
+CREATE DATABASE public
 
     CREATE TABLE items (
     id SERIAL PRIMARY KEY,

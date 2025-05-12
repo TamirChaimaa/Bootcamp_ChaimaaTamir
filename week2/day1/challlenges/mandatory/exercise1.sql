@@ -1,4 +1,4 @@
-CREATE DATABASE Hollywood;
+CREATE DATABASE Hollywoods
 
 CREATE TABLE actors(
  actor_id SERIAL PRIMARY KEY,
