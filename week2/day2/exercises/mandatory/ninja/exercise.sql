@@ -1,20 +1,26 @@
-SELECT * FROM customer;
- 
-SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM customer;
- 
-SELECT DISTINCT create_date FROM customer;
- 
-SELECT * FROM customer ORDER BY first_name DESC;
-SELECT * FROM customer;
- 
-SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM customer;
- 
-SELECT DISTINCT create_date FROM customer;
- 
-SELECT * FROM customer ORDER BY first_name DESC;
- 
-SELECT film_id, title, description, release_year, rental_rate 
-FROM film 
-ORDER BY rental_rate ASC;
+SELECT first_name, last_name
+FROM customers
+ORDER BY last_name ASC, first_name ASC
+LIMIT 2 OFFSET (
+  SELECT COUNT(*) - 2 FROM customers
+);
 
-SELECT address, phone FROM address WHERE
+DELETE FROM purchases
+WHERE customer_id = (
+  SELECT id FROM customers WHERE first_name = 'Scott'
+);
+
+SELECT * FROM customers
+WHERE first_name = 'Scott';
+
+SELECT p.id AS purchase_id,
+       c.first_name,
+       c.last_name
+FROM purchases p
+LEFT JOIN customers c ON p.customer_id = c.id;
+
+SELECT p.id AS purchase_id,
+       c.first_name,
+       c.last_name
+FROM purchases p
+INNER JOIN customers c ON p.customer_id = c.id;
