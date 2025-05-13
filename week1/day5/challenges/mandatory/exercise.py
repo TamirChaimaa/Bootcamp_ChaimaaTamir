@@ -3,36 +3,86 @@ import turtle
 
 class Circle:
     def __init__(self, radius=None, diameter=None):
+        """Initialise la classe Circle avec le rayon ou le diamètre."""
         if radius:
             self.radius = radius
-        else:
+            self.diameter = 2 * radius
+        elif diameter:
+            self.diameter = diameter
             self.radius = diameter / 2
+        else:
+            raise ValueError("Either radius or diameter must be provided.")
     
     def area(self):
-        a = round(math.pi * (self.radius ** 2), 3)
-        return a
-
+        """Calcule et retourne l'aire du cercle."""
+        return math.pi * (self.radius ** 2)
+    
     def __str__(self):
-        return f"The radius of the circle is {self.radius}, its diameter is {self.radius * 2}, and the area is {self.area()}"
+        """Retourne une chaîne de caractères qui représente le cercle."""
+        return f"Circle(radius={self.radius}, diameter={self.diameter})"
     
+    def __repr__(self):
+        """Retourne une représentation officielle du cercle."""
+        return self.__str__()
+
     def __add__(self, other):
-        return (self.radius + other.radius)
-
-    def __gt__(self, other):
-        return self.radius > other.radius
-
-    def __eq__(self, other):
-        return self.radius == other.radius
+        """Additionne deux cercles en ajoutant leurs rayons et retourne un nouveau cercle."""
+        if isinstance(other, Circle):
+            new_radius = self.radius + other.radius
+            return Circle(radius=new_radius)
+        return NotImplemented
     
+    def __gt__(self, other):
+        """Comparaison de taille des cercles en fonction du rayon, retourne un booléen."""
+        if isinstance(other, Circle):
+            return self.radius > other.radius
+        return NotImplemented
+    
+    def __eq__(self, other):
+        """Vérifie si deux cercles sont égaux (même rayon), retourne un booléen."""
+        if isinstance(other, Circle):
+            return self.radius == other.radius
+        return NotImplemented
+    
+    def __lt__(self, other):
+        """Comparaison de taille des cercles en fonction du rayon, retourne un booléen."""
+        if isinstance(other, Circle):
+            return self.radius < other.radius
+        return NotImplemented
 
-list_circle = [Circle(2), Circle(4), Circle(3), Circle(5), Circle(6)]
-list_sorted = sorted(list_circle)
-for i in list_sorted:
-    turtle.circle(i.radius * 10)
+ 
+def draw_circle(circle):
+    turtle.penup()
+    turtle.goto(0, -circle.radius * 10)  
+    turtle.pendown()
+    turtle.circle(circle.radius * 10)   
+    turtle.penup()
+    turtle.goto(0, 0)
 
-circle = Circle(2)
-circle2 = Circle(3)
-print(circle.area())
-print(circle.__add__(circle2))
-print(circle.__gt__(circle2))
-print(circle.__eq__(circle2)) 
+def draw_sorted_circles(circles):
+    turtle.speed(1)
+    for circle in circles:
+        draw_circle(circle)
+    turtle.done()
+
+circle1 = Circle(radius=5)
+circle2 = Circle(diameter=10)
+
+print(circle1)   
+print(circle2)   
+ 
+print(f"Area of circle1: {circle1.area()}")  
+print(f"Area of circle2: {circle2.area()}")   
+ 
+circle3 = circle1 + circle2
+print(f"New circle after addition: {circle3}")  
+ 
+print(circle1 > circle2)   
+print(circle2 > circle1)   
+print(circle1 == circle2)   
+
+circles = [Circle(radius=4), Circle(radius=7), Circle(radius=2)]
+circles.sort()   
+print(f"Sorted circles: {circles}")
+ 
+draw_sorted_circles(circles)
