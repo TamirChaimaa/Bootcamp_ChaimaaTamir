@@ -33,6 +33,7 @@ CREATE TABLE  new_film (
 INSERT INTO new_film (name) VALUES ('Film 1');
 INSERT INTO new_film (name) VALUES ('Film 2');
 INSERT INTO new_film (name) VALUES ('Film 3');
+INSERT INTO new_film (name) VALUES ('Film 4');
 
 --Create a new table called customer_review, which will contain film reviews that customers will make.Think about the DELETE constraint: if a film is deleted, its review should be automatically deleted.It should have the following columns:
 CREATE TABLE customer_review (
@@ -68,6 +69,8 @@ SET language_id = 2
 WHERE film_id IN (1, 2, 3)
 AND EXISTS (SELECT 1 FROM language WHERE language_id = 2);
 
+
+
 ---- The foreign keys defined for the customer table are (store_id - address_id).
 ---When inserting into the customer table, we must ensure that all foreign key values already exist in the referenced tables to maintain referential integrity. 
 
@@ -75,6 +78,7 @@ AND EXISTS (SELECT 1 FROM language WHERE language_id = 2);
 
 ---We created a new table called customer_review. Drop this table. Is this an easy step, or does it need extra checking?
 DROP TABLE customer_review;
+---Dropping the customer_review table may seem like a simple step, but it can require extra checking if the table is referenced by foreign keys in other tables or contains important data that should be backed up before deletion.
 
 --Find out how many rentals are still outstanding (ie. have not been returned to the store yet).
 SELECT COUNT(*) 
