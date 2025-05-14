@@ -37,7 +37,7 @@ LEFT JOIN Customer_profile cp ON c.id = cp.customer_id;
 
 SELECT COUNT(*) AS not_logged_in_count
 FROM Customer c
-LEFT JOIN CustomerProfile cp ON c.id = cp.customer_id
+LEFT JOIN Customer_profile cp ON c.id = cp.customer_id
 WHERE cp.isLoggedIn = FALSE OR cp.isLoggedIn IS NULL;
 
 
@@ -126,3 +126,5 @@ JOIN Book b ON l.book_fk_id = b.book_id
 WHERE b.title = 'Alice In Wonderland';
  
 DELETE FROM Student WHERE name = 'Bob';
+
+--When a student is deleted from the Student table, the related records in the Library junction table are also automatically removed. This is because the Library table uses ON DELETE CASCADE on the student_fk_id foreign key. Therefore, any book borrow records linked to that student will be deleted as well.

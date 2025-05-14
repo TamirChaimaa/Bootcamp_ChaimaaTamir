@@ -56,7 +56,7 @@ VALUES (2, 2, 'Good Movie', 8, 'I liked this film. The plot was interesting and 
 --Delete a film that has a review from the new_film table, what happens to the customer_review table?
 DELETE FROM new_film WHERE id = 1;
 
---When this runs, the review for 'The Matrix' (film_id = 1) will be automatically deleted from customer_review due to the ON DELETE CASCADE constraint. 
+--When this runs, the review for id = 1 will be automatically deleted from customer_review due to the ON DELETE CASCADE constraint. 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -68,23 +68,10 @@ SET language_id = 2
 WHERE film_id IN (1, 2, 3)
 AND EXISTS (SELECT 1 FROM language WHERE language_id = 2);
 
---Which foreign keys (references) are defined for the customer table? How does this affect the way in which we INSERT into the customer table?
-SELECT
-    conname AS constraint_name,
-    conrelid::regclass AS table_name,
-    a.attname AS column_name,
-    cl.relname AS referenced_table,
-    a2.attname AS referenced_column
-FROM
-    pg_constraint AS c
-JOIN
-    pg_attribute AS a ON a.attnum = ANY(c.conkey)
-JOIN
-    pg_class AS cl ON cl.oid = c.confrelid
-JOIN
-    pg_attribute AS a2 ON a2.attnum = ANY(c.confkey)
-WHERE
-    conrelid = 'customer'::regclass;
+---- The foreign keys defined for the customer table are (store_id - address_id).
+---When inserting into the customer table, we must ensure that all foreign key values already exist in the referenced tables to maintain referential integrity. 
+
+
 
 ---We created a new table called customer_review. Drop this table. Is this an easy step, or does it need extra checking?
 DROP TABLE customer_review;
@@ -135,7 +122,7 @@ AND p.amount > 4.00
 AND r.return_date BETWEEN '2005-07-28' AND '2005-08-01';
  
 --The 4th film : His friend Matthew Mahan watched this film, as well. It had the word “boat” in the title or description, and it looked like it was a very expensive DVD to replace
-SELECT DISTINCT f.title, f.replacement_cost
+SELECT DISTINCT f.title, f.description,f.replacement_cost
 FROM rental r
 JOIN customer c ON r.customer_id = c.customer_id
 JOIN inventory i ON r.inventory_id = i.inventory_id
