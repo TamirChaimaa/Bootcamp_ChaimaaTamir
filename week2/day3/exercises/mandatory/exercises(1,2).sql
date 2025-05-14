@@ -25,10 +25,11 @@ LEFT JOIN
 
 
 --Create a new table called new_film with the following columns : id, name. Add some new films to the table.
-CREATE TABLE new_film (
+CREATE TABLE  new_film (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL UNIQUE
 );
+
 INSERT INTO new_film (name) VALUES ('Film 1');
 INSERT INTO new_film (name) VALUES ('Film 2');
 INSERT INTO new_film (name) VALUES ('Film 3');
@@ -42,7 +43,7 @@ CREATE TABLE customer_review (
     score SMALLINT CHECK (score BETWEEN 1 AND 10),
     review_text TEXT,
     last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (film_id) REFERENCES film(film_id) ON DELETE CASCADE,
+    FOREIGN KEY (film_id) REFERENCES new_film(id) ON DELETE CASCADE,
     FOREIGN KEY (language_id) REFERENCES language(language_id)
 );
 --Add 2 movie reviews. Make sure you link them to valid objects in the other tables.

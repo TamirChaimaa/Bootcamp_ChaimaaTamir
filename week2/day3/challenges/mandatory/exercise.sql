@@ -25,6 +25,22 @@ INSERT INTO Customer_profile (customer_id, isLoggedIn) VALUES
     ((SELECT id FROM Customer WHERE first_name = 'John' AND last_name = 'Doe'), true),
     ((SELECT id FROM Customer WHERE first_name = 'Jerome' AND last_name = 'Lalu'), false);
 
+--4 
+SELECT c.first_name
+FROM Customer c
+JOIN Customer_profile cp ON c.id = cp.customer_id
+WHERE cp.isLoggedIn = TRUE;
+
+SELECT c.first_name, cp.isLoggedIn
+FROM Customer c
+LEFT JOIN Customer_profile cp ON c.id = cp.customer_id;
+
+SELECT COUNT(*) AS not_logged_in_count
+FROM Customer c
+LEFT JOIN CustomerProfile cp ON c.id = cp.customer_id
+WHERE cp.isLoggedIn = FALSE OR cp.isLoggedIn IS NULL;
+
+
 --Part II
 --1
 CREATE TABLE Book (
@@ -57,6 +73,7 @@ VALUES
   ('Patrick', 10),
   ('Bob', 14);
 --5
+
 CREATE TABLE Library (
     book_fk_id INT,
     student_fk_id INT,
