@@ -53,7 +53,7 @@ class MenuItem:
 
 
 if __name__ == "__main__":
-    # For creating the table
+    # For creating the table of Menu Items
     # create_table_ = f'''
     #             CREATE TABLE Menu_Items(
     #                 item_id SERIAL PRIMARY KEY,

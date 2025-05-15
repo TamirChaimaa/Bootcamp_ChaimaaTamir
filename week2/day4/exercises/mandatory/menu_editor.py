@@ -105,7 +105,7 @@ def show_restaurant_menu():
         print("The restaurant menu is empty.")
         return
     
-    print("----- Restaurant Menu -----")
+    print("------ Restaurant Menu ------")
     
     for item in items:
         item_id, name, price = item
