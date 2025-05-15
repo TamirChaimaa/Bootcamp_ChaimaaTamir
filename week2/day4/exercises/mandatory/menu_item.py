@@ -1,94 +1,95 @@
 import psycopg2
-from psycopg2 import OperationalError
+
+def get_connection():
+    return psycopg2.connect(
+        dbname="restaurant",
+        user="postgres",
+        password="admin",
+        host="localhost",
+        port="5432"
+    )
 
 class MenuItem:
     def __init__(self, name, price):
         self.name = name
         self.price = price
-    
-    @staticmethod
-    def connect():
-        """Create a connection and ensure the table exists."""
-        try:
-            conn = psycopg2.connect(
-                dbname="restaurant",
-                user="postgres",
-                password="admin",
-                host="localhost",
-                port="5432"
-            )
-            # Dès qu'on a la connexion, on s'assure que la table existe
-            MenuItem.create_table(conn)
-            return conn
-        except OperationalError as e:
-            print("Connection error:", e)
-            return None
-        
-    @staticmethod
-    def create_table(conn):
-        cursor = conn.cursor()
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS Menu_Items (
-                item_id SERIAL PRIMARY KEY,
-                item_name VARCHAR(100) UNIQUE NOT NULL,
-                item_price NUMERIC(6, 2) NOT NULL
-            )
-        """)
-        conn.commit()
-        cursor.close()
-        print("Table 'Menu_Items' is ready.")
 
     def save(self):
-        conn = MenuItem.connect()
-        if conn is None:
-            return
-        cursor = conn.cursor()
-        cursor.execute(
-            "INSERT INTO Menu_Items (item_name, item_price) VALUES (%s, %s)",
-            (self.name, self.price)
-        )
-        conn.commit()
-        cursor.close()
-        conn.close()
-        print(f"The item '{self.name}' has been added to the database.")
+        try:
+            conn = get_connection()
+            cur = conn.cursor()
+            cur.execute(
+                "INSERT INTO Menu_Items (item_name, item_price) VALUES (%s, %s)",
+                (self.name, self.price)
+            )
+            conn.commit()
+            print(f"Item '{self.name}' added successfully.")
+        except Exception as e:
+            print("Error while saving item:", e)
+        finally:
+            cur.close()
+            conn.close()
 
     def delete(self):
-        conn = MenuItem.connect()
-        if conn is None:
-            return
-        cursor = conn.cursor()
-        cursor.execute("DELETE FROM Menu_Items WHERE item_name = %s", (self.name,))
-        conn.commit()
-        cursor.close()
-        conn.close()
-        print(f"The item '{self.name}' has been deleted from the database.")
-    
-    def update(self, new_name=None, new_price=None):
-        conn = MenuItem.connect()
-        if conn is None:
-            return
-        cursor = conn.cursor()
+        try:
+            conn = get_connection()
+            cur = conn.cursor()
 
-        old_name = self.name
+            # Vérifie si l'item existe dans la base
+            cur.execute("SELECT * FROM Menu_Items WHERE item_name = %s", (self.name,))
+            item = cur.fetchone()
 
-        if new_name:
-            self.name = new_name
+            if not item:
+                print(f"Error: Item '{self.name}' does not exist. Deletion cancelled.")
+                return
 
-        if new_price is not None:
-            self.price = new_price
+            # L'item existe, donc on le supprime
+            cur.execute("DELETE FROM Menu_Items WHERE item_name = %s", (self.name,))
+            conn.commit()
+            print(f"Item '{self.name}' deleted successfully.")
 
-        cursor.execute(
-            "UPDATE Menu_Items SET item_name = %s, item_price = %s WHERE item_name = %s",
-            (self.name, self.price, old_name)
-        )
+        except Exception as e:
+            print("Error while deleting item:", e)
+        finally:
+            cur.close()
+            conn.close()
 
-        conn.commit()
-        cursor.close()
-        conn.close()
-        print(f"The item has been updated: {self.name} - {self.price} €")
+    def update(self, new_name, new_price):
+        try:
+            conn = get_connection()
+            cur = conn.cursor()
+
+            # Vérifie si l'item existe avant de le mettre à jour
+            cur.execute("SELECT * FROM Menu_Items WHERE item_name = %s", (self.name,))
+            item = cur.fetchone()
+
+            if not item:
+                print(f"Error: Item '{self.name}' does not exist. Update cancelled.")
+                return
+
+            cur.execute(
+                "UPDATE Menu_Items SET item_name = %s, item_price = %s WHERE item_name = %s",
+                (new_name, new_price, self.name)
+            )
+            conn.commit()
+            print(f"Item '{self.name}' updated successfully.")
+
+        except Exception as e:
+            print("Error while updating item:", e)
+        finally:
+            cur.close()
+            conn.close()
 
 if __name__ == "__main__":
+    # create_table = f'''
+    #             CREATE TABLE Menu_Items(
+    #                 item_id SERIAL PRIMARY KEY,
+    #                 item_name VARCHAR(30) NOT NULL,
+    #                 item_price SMALLINT DEFAULT 0
+    #             )
+    #             '''
+    
     item = MenuItem('Burger', 35)
     item.save()
-    item.delete()
-    item.update('Veggie Burger', 37)
+    # item.delete()
+    item.update('Veggie Burgy', 37)
