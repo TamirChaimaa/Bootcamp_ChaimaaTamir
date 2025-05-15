@@ -6,7 +6,7 @@ import random
 DB_PARAMS = {
     'dbname': 'countries',
     'user': 'postgres',
-    'password': 'admin',  # remplace par ton mot de passe
+    'password': 'admin',  
     'host': 'localhost',
     'port': 5432
 }
