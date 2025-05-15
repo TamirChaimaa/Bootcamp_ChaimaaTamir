@@ -1,6 +1,3 @@
-# menu_item.py
-# menu_item.py
-
 import psycopg2
 from psycopg2 import OperationalError
 
@@ -11,20 +8,35 @@ class MenuItem:
     
     @staticmethod
     def connect():
-        """Méthode privée pour créer une connexion à la base."""
+        """Create a connection and ensure the table exists."""
         try:
             conn = psycopg2.connect(
-                dbname="Menu",
+                dbname="restaurant",
                 user="postgres",
                 password="admin",
                 host="localhost",
                 port="5432"
             )
+            # Dès qu'on a la connexion, on s'assure que la table existe
+            MenuItem.create_table(conn)
             return conn
         except OperationalError as e:
-            print("Erreur de connexion :", e)
+            print("Connection error:", e)
             return None
-
+        
+    @staticmethod
+    def create_table(conn):
+        cursor = conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS Menu_Items (
+                item_id SERIAL PRIMARY KEY,
+                item_name VARCHAR(100) UNIQUE NOT NULL,
+                item_price NUMERIC(6, 2) NOT NULL
+            )
+        """)
+        conn.commit()
+        cursor.close()
+        print("Table 'Menu_Items' is ready.")
 
     def save(self):
         conn = MenuItem.connect()
@@ -38,8 +50,7 @@ class MenuItem:
         conn.commit()
         cursor.close()
         conn.close()
-        print(f"L'élément '{self.name}' a été ajouté à la base.")
-
+        print(f"The item '{self.name}' has been added to the database.")
 
     def delete(self):
         conn = MenuItem.connect()
@@ -50,8 +61,7 @@ class MenuItem:
         conn.commit()
         cursor.close()
         conn.close()
-        print(f"L'élément '{self.name}' a été supprimé de la base.")
-    
+        print(f"The item '{self.name}' has been deleted from the database.")
     
     def update(self, new_name=None, new_price=None):
         conn = MenuItem.connect()
@@ -59,7 +69,6 @@ class MenuItem:
             return
         cursor = conn.cursor()
 
-        # On garde l'ancien nom pour la requête WHERE
         old_name = self.name
 
         if new_name:
@@ -68,7 +77,6 @@ class MenuItem:
         if new_price is not None:
             self.price = new_price
 
-        # Mise à jour des deux champs en une requête
         cursor.execute(
             "UPDATE Menu_Items SET item_name = %s, item_price = %s WHERE item_name = %s",
             (self.name, self.price, old_name)
@@ -77,11 +85,10 @@ class MenuItem:
         conn.commit()
         cursor.close()
         conn.close()
-        print(f"L'élément a été mis à jour : {self.name} - {self.price} €")
+        print(f"The item has been updated: {self.name} - {self.price} €")
 
 if __name__ == "__main__":
-    # Ajouter un élément
-   item = MenuItem('Burger', 35)
-   item.save()
-   item.delete()
-   item.update('Veggie Burger', 37)
+    item = MenuItem('Burger', 35)
+    item.save()
+    item.delete()
+    item.update('Veggie Burger', 37)

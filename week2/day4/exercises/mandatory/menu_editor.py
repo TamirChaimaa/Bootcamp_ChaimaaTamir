@@ -3,23 +3,23 @@ from menu_manager import MenuManager
 
 def show_user_menu():
     while True:
-        print("\n--- Menu du programme ---")
-        print("V - Voir un élément")
-        print("A - Ajouter un élément")
-        print("D - Supprimer un élément")
-        print("U - Mettre à jour un élément")
-        print("S - Afficher le menu du restaurant")
-        print("Q - Quitter")
+        print("\n--- Program Menu ---")
+        print("V - View an item")
+        print("A - Add an item")
+        print("D - Delete an item")
+        print("U - Update an item")
+        print("S - Show the restaurant menu")
+        print("Q - Quit")
 
-        choice = input("Choisissez une option : ").strip().upper()
+        choice = input("Choose an option: ").strip().upper()
 
         if choice == "V":
-            name = input("Entrez le nom de l'élément à rechercher : ")
+            name = input("Enter the name of the item to search for: ")
             item = MenuManager.get_by_name(name)
             if item:
-                print(f"Nom : {item.name}, Prix : {item.price}€")
+                print(f"Name: {item.name}, Price: {item.price}€")
             else:
-                print("Élément non trouvé.")
+                print("Item not found.")
         elif choice == "A":
             add_item_to_menu()
         elif choice == "D":
@@ -29,48 +29,48 @@ def show_user_menu():
         elif choice == "S":
             show_restaurant_menu()
         elif choice == "Q":
-            print("Fermeture du programme.")
+            print("Closing the program.")
             break
         else:
-            print("Choix invalide. Veuillez réessayer.")
+            print("Invalid choice. Please try again.")
 
 def add_item_to_menu():
-    name = input("Entrez le nom de l'article : ")
+    name = input("Enter the item name: ")
     try:
-        price = float(input("Entrez le prix : "))
+        price = float(input("Enter the price: "))
         item = MenuItem(name, price)
         item.save()
-        print("✔ Élément ajouté avec succès.")
+        print("✔ Item added successfully.")
     except ValueError:
-        print("Erreur : Le prix doit être un nombre.")
+        print("Error: Price must be a number.")
 
 def remove_item_from_menu():
-    name = input("Entrez le nom de l'article à supprimer : ")
-    item = MenuItem(name, 0)  # Prix fictif car non utilisé
+    name = input("Enter the name of the item to delete: ")
+    item = MenuItem(name, 0)  # Dummy price since it's not used
     item.delete()
-    print("✔ Élément supprimé avec succès.")
+    print("✔ Item deleted successfully.")
 
 def update_item_from_menu():
-    name = input("Entrez le nom de l'article à mettre à jour : ")
+    name = input("Enter the name of the item to update: ")
     item = MenuManager.get_by_name(name)
     if not item:
-        print("❌ Élément non trouvé.")
+        print(" Item not found.")
         return
 
-    new_name = input("Entrez le nouveau nom : ")
+    new_name = input("Enter the new name: ")
     try:
-        new_price = float(input("Entrez le nouveau prix : "))
+        new_price = float(input("Enter the new price: "))
         item.update(new_name, new_price)
-        print("✔ Élément mis à jour avec succès.")
+        print("✔ Item updated successfully.")
     except ValueError:
-        print("Erreur : Le prix doit être un nombre.")
+        print("Error: Price must be a number.")
 
 def show_restaurant_menu():
     items = MenuManager.all_items()
     if not items:
-        print("Le menu est vide.")
+        print("The menu is empty.")
     else:
-        print("\n--- Menu du restaurant ---")
+        print("\n--- Restaurant Menu ---")
         for item in items:
             print(f"{item.name} : {item.price} €")
 

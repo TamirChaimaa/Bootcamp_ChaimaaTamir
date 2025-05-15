@@ -1,15 +1,15 @@
 import psycopg2
 from psycopg2 import OperationalError
-from menu_item import MenuItem  # On importe la classe MenuItem définie ailleurs
+from menu_item import MenuItem  # Import the MenuItem class defined elsewhere
 
 class MenuManager:
 
     @classmethod
     def connect(cls):
-        """Méthode privée pour ouvrir la connexion à la base."""
+        """Private method to open a connection to the database."""
         try:
             conn = psycopg2.connect(
-                dbname="Menu",
+                dbname="restaurant",
                 user="postgres",
                 password="admin",
                 host="localhost",
@@ -17,7 +17,7 @@ class MenuManager:
             )
             return conn
         except OperationalError as e:
-            print("Erreur de connexion :", e)
+            print("Connection error:", e)
             return None
 
     @classmethod
@@ -50,16 +50,15 @@ class MenuManager:
         cursor.close()
         conn.close()
         return [MenuItem(name, price) for name, price in rows]
-if __name__ == "__main__":
-# Test get_by_name
- item = MenuItem('Burger', 35)
- item.save()
- item.delete()
- item.update('Veggie Burger', 37)
- item2 = MenuManager.get_by_name('Beef Stew')
- items = MenuManager.all_items()
- 
- print("Liste des items du menu :")
- for item in items:
-    print(f"Nom : {item.name}, Prix : {item.price} €")
 
+if __name__ == "__main__":
+    # Test get_by_name
+    item = MenuItem('Burger', 35)
+    item.save()
+    item.update('Veggie Burger', 37)
+    item2 = MenuManager.get_by_name('Beef Stew')
+    items = MenuManager.all_items()
+    
+    print("Menu item list:")
+    for item in items:
+        print(f"Name: {item.name}, Price: {item.price} €")
