@@ -1,36 +1,65 @@
-from menu_item import get_connection, MenuItem
+import psycopg2
 
-class MenuManager:
-    @classmethod
-    def get_by_name(cls, name):
-        try:
-            conn = get_connection()
-            cur = conn.cursor()
-            cur.execute("SELECT item_name, item_price FROM Menu_Items WHERE item_name = %s", (name,))
-            result = cur.fetchone()
-            if result:
-                return MenuItem(result[0], result[1])
-            else:
-                return None
-        except Exception as e:
-            print("Error fetching item:", e)
-        finally:
-            cur.close()
-            conn.close()
+HOSTNAME = 'localhost'
+USERNAME = 'postgres'
+PASSWORD = 'admin'
+DATABASE = 'restaurant'
+
+class MenuManager():
+    def __init__(self):
+        pass
 
     @classmethod
-    def all_items(cls):
+    def all_items(self):
+        query = f'''
+                    SELECT * FROM menu_items;
+                '''
         try:
-            conn = get_connection()
-            cur = conn.cursor()
-            cur.execute("SELECT item_name, item_price FROM Menu_Items")
-            items = cur.fetchall()
-            return [MenuItem(name, price) for name, price in items]
+            connect = psycopg2.connect(
+                host=HOSTNAME, 
+                user=USERNAME, 
+                password=PASSWORD, 
+                dbname=DATABASE)
         except Exception as e:
-            print("Error fetching all items:", e)
-        finally:
-            cur.close()
-            conn.close()
+            print(f"Error: {e}")
+        
+        cursor = connect.cursor()
+        cursor.execute(query)
+        connect.commit()
+        result = cursor.fetchall()
+        connect.close()
+        return result
+
+    @classmethod
+    def get_by_name(self, name):
+        result = None
+        query = f'''
+                    SELECT * FROM menu_items
+                    WHERE item_name = %s
+                    LIMIT 1;
+                '''
+        val = (name,)
+        try:
+            connect = psycopg2.connect(
+                host=HOSTNAME, 
+                user=USERNAME, 
+                password=PASSWORD, 
+                dbname=DATABASE)
+        except Exception as e:
+            print(f"Error: {e}")
+        
+        cursor = connect.cursor()
+        cursor.execute(query, val)
+        connect.commit()
+        result = cursor.fetchall()
+        connect.close()
+        if result:
+            return result
+        else:
+            return None
+        
+    
+
 if __name__ == "__main__":
     # item = MenuItem('Burger', 35)
     # item.save()
@@ -41,3 +70,4 @@ if __name__ == "__main__":
     item2 = MenuManager.get_by_name('Veggie Burgy')
     print(item2)
     print(MenuManager.all_items())
+    
