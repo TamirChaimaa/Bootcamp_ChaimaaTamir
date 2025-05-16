@@ -66,7 +66,7 @@ if __name__ == "__main__":
     # item.delete()
     # item.update('Veggie Burger', 37)
     item2 = MenuManager.get_by_name('Beef Stew')
-    items = MenuManager.all()
+    items = MenuManager.all_items()
     item2 = MenuManager.get_by_name('Veggie Burgy')
     print(item2)
     print(MenuManager.all_items())
