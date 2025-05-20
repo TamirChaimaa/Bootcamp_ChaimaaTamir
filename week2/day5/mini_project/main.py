@@ -60,6 +60,8 @@ def create_user(user_create: UserCreate):
     user.save()
     return {"message": f"User '{user.username}' created."}
 
+
+
 @app.put("/users/{username}")
 def update_user(username: str, user_update: UserCreate):
     user = User.get_by_username(username)

@@ -24,7 +24,7 @@ class User:
             conn = User.get_connection()
             cur = conn.cursor()
             cur.execute("""
-                INSERT INTO users (username, email, password_hash, full_name, role, is_active)
+                INSERT INTO users (username, email, password_hash, role, is_active)
                 VALUES (%s, %s, %s, %s, %s, %s)
             """, (self.username, self.email, hashed_password.decode('utf-8'), self.full_name, self.role, self.is_active))
             conn.commit()
