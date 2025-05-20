@@ -16,7 +16,7 @@ const building = {
 console.log(building.numberOfFloors);
 //Console.log how many apartments are on the floors 1.
 console.log(building.numberOfAptByFloor.firstFloor);
-//Console.log how many apartments are on the floors 1.
+//Console.log how many apartments are on the floors 3.
 console.log(building.numberOfAptByFloor.thirdFloor);
 //Console.log the name of the second tenant and the number of rooms he has in his apartment.
 console.log(building.nameOfTenants[1]);
@@ -26,4 +26,7 @@ let total = building.numberOfRoomsAndRent.sarah[1] + building.numberOfRoomsAndRe
 if (total > building.numberOfRoomsAndRent.dan[1]) {
     building.numberOfRoomsAndRent.dan[1] = 1200;
     console.log(building.numberOfRoomsAndRent.dan[1]);
+}
+else {
+    console.log("No change in Dan's rent.");
 }
