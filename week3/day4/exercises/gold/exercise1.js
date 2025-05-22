@@ -1,7 +1,8 @@
-//Display the value of the selected option.
-const selectElement = document.getElementById("genres");
-const selectedValue = selectElement.value;
-console.log(selectedValue);
+const select = document.getElementById('genres');
+console.log("Initially selected:", select.value);
 
-//Add an additional option to the select tag:
-//<option value="classic">Classic</option>
+const newOption = new Option("Classic", "classic");
+newOption.selected = true;
+select.appendChild(newOption);
+
+console.log("After adding 'Classic':", select.value);

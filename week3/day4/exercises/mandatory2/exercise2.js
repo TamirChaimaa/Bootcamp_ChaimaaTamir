@@ -1,14 +1,23 @@
-function move() {
-  const elem = document.getElementById("animate");
-  const container = document.getElementById("container");
-  let pos = 0;
+setTimeout(() => alert("Hello World"), 2000);
 
-  const interval = setInterval(() => {
-    if (pos >= container.clientWidth - elem.offsetWidth) {
-      clearInterval(interval);
-    } else {
-      pos++;
-      elem.style.left = pos + "px";
-    }
-  }, 1);
+const addParagraph = () => {
+    const container = document.getElementById("container");
+    const paragraphe = "<p>Hello World</p>";
+    container.innerHTML = paragraphe;
 }
+
+setTimeout(addParagraph, 2000);
+
+const interval = setInterval(() => {
+    const container = document.getElementById("container");
+    const paragraphe = "<p>Hello World</p>";
+    // const container = document.getElementById("container");
+    const paragraphs = container.getElementsByTagName("p");
+    if (paragraphs.length < 5)
+        container.innerHTML += paragraphe;
+    else
+        clearInterval(interval);
+}
+, 2000);
+
+document.getElementById("clear").addEventListener("click", () => clearInterval(interval));
