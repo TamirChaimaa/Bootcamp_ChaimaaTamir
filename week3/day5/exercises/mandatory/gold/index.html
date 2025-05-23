@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Boutons Audio</title>
+        <style>
+    body {
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      background: url('https://img.freepik.com/photos-gratuite/vue-arriere-foule-fans-regardant-performances-direct-concert-musique-nuit-espace-copie_637285-544.jpg?ga=GA1.1.880347546.1744916012&semt=ais_hybrid&w=740');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      width: 100px;
+      height: 100px;
+      border: 2px solid yellow;
+      color: white;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 10px yellow;
+      transition: transform 0.2s;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+
+    .key {
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .sound {
+      font-size: 14px;
+      color: yellow;
+      margin-top: 5px;
+    }
+  </style>
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="btn"><div class="key">A</div><div
+                    class="sound">Boom</div></div>
+            <div class="btn"><div class="key">S</div><div
+                    class="sound">Clap</div></div>
+            <div class="btn"><div class="key">D</div><div
+                    class="sound">HiHat</div></div>
+            <div class="btn"><div class="key">F</div><div
+                    class="sound">Kick</div></div>
+            <div class="btn"><div class="key">G</div><div
+                    class="sound">OpenHat</div></div>
+            <div class="btn"><div class="key">H</div><div
+                    class="sound">Ride</div></div>
+            <div class="btn"><div class="key">J</div><div
+                    class="sound">Snare</div></div>
+            <div class="btn"><div class="key">K</div><div
+                    class="sound">Tink</div></div>
+            <div class="btn"><div class="key">L</div><div
+                    class="sound">Tom</div></div>
+        </div>
+
+        <audio data-key="A" src="boom.wav"></audio>
+        <audio data-key="S" src="clap.wav"></audio>
+        <audio data-key="D" src="hihat.wav"></audio>
+        <audio data-key="F" src="kick.wav"></audio>
+        <audio data-key="G" src="openhat.wav"></audio>
+        <audio data-key="H" src="ride.wav"></audio>
+        <audio data-key="J" src="snare.wav"></audio>
+        <audio data-key="K" src="tink.wav"></audio>
+        <audio data-key="L" src="tom.wav"></audio>
+
+    </body>
+    <script src="script.js"></script>
+</html>
