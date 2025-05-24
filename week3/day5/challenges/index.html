@@ -1,52 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Todo List with Tailwind CSS</title>
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Font Awesome CDN for "X" icon -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    integrity="sha512-p1K3VXQ4CBXnXq69lP06jbi1YNF5W0NylbPv0xY80z0Gv9bY4SpZkuH1lh0Ua75yJqLNRzJ5y2t8tePbwK1hZw=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
-</head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ToDo List</title>
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <style>
 
-  <main class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-    <h1 class="text-2xl font-bold mb-4 text-center">My Todo List</h1>
-    
-    <!-- Form to add new task -->
-    <form id="taskForm" class="flex mb-6">
-      <input
-        type="text"
-        id="taskInput"
-        class="flex-grow border border-gray-300 rounded-l px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        placeholder="Add a new task"
-      />
-      <button
-        type="submit"
-        class="bg-indigo-600 text-white px-4 rounded-r hover:bg-indigo-700 transition"
-      >
-        Add
-      </button>
-    </form>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    <!-- Task list container -->
-    <div class="listTasks space-y-3"></div>
+body {
+    background: linear-gradient(135deg, #ff4757, #ff3742);
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
 
-    <button
-      id="clearBtn"
-      class="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
-    >
-      Clear
-    </button>
-  </main>
+.container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+}
 
-  <script src="script.js"></script>
-</body>
+h1 {
+    text-align: center;
+    color: #ff4757;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.input-group {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 5px 0 0 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+input[type="text"]:focus {
+    border-color: #ff4757;
+}
+
+button[type="submit"] {
+    background: #4a90e2;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+button[type="submit"]:hover {
+    background: #357abd;
+}
+
+.listTasks {
+    margin-bottom: 20px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    background: #f9f9f9;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.delete-btn {
+    background: #ff4757;
+    color: white;
+    border: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+.delete-btn:hover {
+    background: #ff3742;
+}
+
+.task-checkbox {
+    margin-right: 10px;
+}
+
+.task-label {
+    flex: 1;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.task-label.completed {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.clear-btn {
+    background: transparent;
+    color: #ff4757;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    float: right;
+    padding: 5px;
+}
+
+.clear-btn:hover {
+    text-decoration: underline;
+}
+
+
+
+    </style>
+        <div class="container">
+            <h1>TODO LIST</h1>
+            <form id="taskForm">
+                <div class="input-group">
+                    <input type="text" id="taskInput" placeholder="new task">
+                    <button type="submit">ADD</button>
+                </div>
+            </form>
+            <div class="listTasks"></div>
+            <button class="clear-btn">Clear</button>
+        </div>
+        <script src="script.js"></script>
+    </body>
 </html>
