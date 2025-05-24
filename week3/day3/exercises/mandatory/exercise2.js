@@ -20,7 +20,7 @@ function myBill() {
     let total = 0;
 
     for (let item of shoppingList) {
-        if (item in stock) {
+        if (item in stock && stock[item]>0) {
             total += prices[item];
             stock[item]--;
             if (stock[item]<0) {
