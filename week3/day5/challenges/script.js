@@ -1,40 +1,37 @@
-// Initialize an empty array to hold the tasks
-const tasks = [];
 
-// Select DOM elements needed for interaction
+const tasks = [];
 const taskForm = document.getElementById('taskForm');
 const taskInput = document.getElementById('taskInput');
 const listTasks = document.querySelector('.listTasks');
 const clearBtn = document.querySelector('.clear-btn');
 
-// Adds a new task to the list
+// Function to add a task
 function addTask() {
     const taskText = taskInput.value.trim();
     
-    // Prevent adding empty tasks
+    // Check that the input is not empty
     if (taskText === '') {
         alert('Please enter a task!');
         return;
     }
     
-    // Insert the new task object into the tasks array
+    // Add task to the array
     tasks.push({
         id: Date.now(),
         text: taskText,
         completed: false
     });
     
-    // Refresh the task list display
+    // Add task to the DOM
     renderTasks();
     
-    // Reset the input field for next task
+    // Clear the input field
     taskInput.value = '';
 }
-
-// Displays all tasks in the DOM
+// Function to render tasks
 function renderTasks() {
     listTasks.innerHTML = '';
-    
+    // Loop through tasks and add them to the DOM
     tasks.forEach(task => {
         const taskItem = document.createElement('div');
         taskItem.className = 'task-item';
@@ -53,8 +50,9 @@ function renderTasks() {
     });
 }
 
-// Removes a task from the array by its id and updates the display
+// Function to delete a task
 function deleteTask(taskId) {
+    // Find the index of the task
     const taskIndex = tasks.findIndex(task => task.id === taskId);
     if (taskIndex > -1) {
         tasks.splice(taskIndex, 1);
@@ -62,40 +60,38 @@ function deleteTask(taskId) {
     }
 }
 
-// Toggles the completion status of a task and re-renders the list
+// Function to toggle task completion
 function toggleTask(taskId) {
+    // Find the task
     const task = tasks.find(task => task.id === taskId);
     if (task) {
+        // Toggle the task completion
         task.completed = !task.completed;
         renderTasks();
     }
 }
 
-// Remove only tasks that are marked as completed
+// Function to clear all tasks
 function clearAllTasks() {
-    // Keep only tasks that are not completed
-    const activeTasks = tasks.filter(task => !task.completed);
-    
-    // Replace the tasks array content with active tasks
     tasks.length = 0;
-    tasks.push(...activeTasks);
-    
-    // Update the UI
     renderTasks();
 }
 
-// Event handlers for form submission and buttons
+// Event listeners
 taskForm.addEventListener('submit', function(e) {
     e.preventDefault();
     addTask();
 });
-
+// Clear all tasks
 clearBtn.addEventListener('click', clearAllTasks);
 
-// Allow adding a task when pressing Enter key inside the input
+// Allow adding tasks by pressing Enter
 taskInput.addEventListener('keypress', function(e) {
+    // Check if the pressed key is Enter
     if (e.key === 'Enter') {
+        // Prevent the default form submission
         e.preventDefault();
+        // Add the task
         addTask();
     }
 });
