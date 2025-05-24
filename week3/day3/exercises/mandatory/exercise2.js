@@ -23,9 +23,6 @@ function myBill() {
         if (item in stock && stock[item]>0) {
             total += prices[item];
             stock[item]--;
-            if (stock[item]<0) {
-                stock[item] = 0;
-            }
         }
     }
     console.log(total);
