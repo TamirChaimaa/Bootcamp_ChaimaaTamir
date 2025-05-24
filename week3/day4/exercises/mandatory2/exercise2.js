@@ -1,23 +1,23 @@
-setTimeout(() => alert("Hello World"), 2000);
+var i = 0;
+var isClicked = false;
 
-const addParagraph = () => {
-    const container = document.getElementById("container");
-    const paragraphe = "<p>Hello World</p>";
-    container.innerHTML = paragraphe;
-}
-
-setTimeout(addParagraph, 2000);
-
-const interval = setInterval(() => {
-    const container = document.getElementById("container");
-    const paragraphe = "<p>Hello World</p>";
-    // const container = document.getElementById("container");
-    const paragraphs = container.getElementsByTagName("p");
-    if (paragraphs.length < 5)
-        container.innerHTML += paragraphe;
-    else
+const myMove = () => {
+    const anime = document.getElementById("animate");
+    
+    if (isClicked) {
         clearInterval(interval);
-}
-, 2000);
-
-document.getElementById("clear").addEventListener("click", () => clearInterval(interval));
+        isClicked = false;
+        return;
+    }
+    
+    isClicked = true;
+    interval = setInterval(() => {
+        if (i <= 8) {
+            if (i === 8)
+                i = 0;
+            anime.style.marginLeft = 50 * i + "px";
+            i++;
+        } else 
+            i = 0;
+    }, 150);
+};
