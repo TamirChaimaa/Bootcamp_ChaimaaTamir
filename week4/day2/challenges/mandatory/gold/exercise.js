@@ -7,6 +7,13 @@ const inventory = [
 ];
 
 // Part I
+/**
+ * This function takes an array of car objects and returns a string
+ * describing the first Honda car found in the inventory.
+ * 
+ * @param {Array} carInventory - An array of car objects.
+ * @returns {string} A description of the Honda car.
+ */
 const getCarHonda = (carInventory) => {
   const hondaCar = carInventory.find(car => car.car_make === "Honda");
   return `This is a ${hondaCar.car_make} ${hondaCar.car_model} from ${hondaCar.car_year}.`;

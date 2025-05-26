@@ -16,4 +16,4 @@ console.log(message);
  
 const trapped = [[[[[[[[[[[[[[[[[[[[[[[[[[3]]]]]]]]]]]]]]]]]]]]]]]]]];
 console.log(trapped.flat(Infinity)); 
-// [3]
+///[3]

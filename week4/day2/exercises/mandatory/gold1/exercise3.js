@@ -5,4 +5,4 @@ const newArray = arrayNum.map((num, i) => {
     alert(num);
     return num * 2;
 });
-/* output: [2, 4, 8, 10, 16, 18] */
+/* output: [2, 4, 8, 10, 16, 18] **/
