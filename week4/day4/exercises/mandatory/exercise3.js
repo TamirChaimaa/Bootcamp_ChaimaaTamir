@@ -28,4 +28,5 @@ console.log(typeof json_mario_game);
 //What happens to the nested objects ?
 //Convert and pretty print this JS object into a JSON object. Hint : Check out the JSON lesson on the platform.
 json_mario_game_pretty  =  JSON.stringify( marioGame, null, 4 );
-console.log(json_mario_game);
+console.log('#################################################')
+console.log(json_mario_game_pretty);
