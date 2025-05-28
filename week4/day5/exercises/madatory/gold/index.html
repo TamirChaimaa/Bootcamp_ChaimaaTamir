@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic-Tac-Toe</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Styles CSS pour le jeu */
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <h1 class="text-3xl font-bold mb-4 text-gray-900">Tic-Tac-Toe</h1>
+      <div id="board" class="grid grid-cols-3 gap-4 mb-4">
+        <!-- Cases du plateau de jeu -->
+      </div>
+      <div id="scoreboard" class="flex justify-between items-center mb-4">
+        <!-- Scores des joueurs -->
+      </div>
+      <div
+        id="turn-indicator"
+        class="text-2xl font-bold mb-4 text-gray-900"
+      ></div>
+      <button
+        id="reset-button"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Réinitialiser le jeu
+      </button>
+    </div>
+
+    <script src="script.js">
+    </script>
+  </body>
+</html>

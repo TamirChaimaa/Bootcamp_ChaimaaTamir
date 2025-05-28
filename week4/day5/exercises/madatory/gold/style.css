@@ -1,0 +1,60 @@
+
+  .board-cell {
+    width: 100px;
+    height: 100px;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #222;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  #app {
+    text-align: center;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h1 {
+    font-size: 32px;
+    color: #333;
+  }
+
+  .text-gray-900 {
+    color: #333 !important;
+  }
+
+  .text-2xl {
+    font-size: 24px;
+  }
+
+  .bg-blue-500 {
+    background-color: #4267b2;
+  }
+
+  .bg-blue-500:hover {
+    background-color: #3b5ca0;
+  }
+
+  .bg-blue-700 {
+    background-color: #385898;
+  }
+
+  .text-white {
+    color: #fff !important;
+  }
+
+  .rounded {
+    border-radius: 4px;
+  }
+
+  .highlight {
+    background-color: #ffed4a;
+  }
