@@ -91,7 +91,7 @@ function getBestMove() {
       board[i] = '';
     }
   }
-  // 3. Pick center
+  // 3. Pick the center
   if (board[4] === '') return 4;
   // 4. Pick random
   let empty = board.map((v, i) => v === '' ? i : null).filter(v => v !== null);
