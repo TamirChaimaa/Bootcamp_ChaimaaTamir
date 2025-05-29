@@ -1,40 +1,50 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tic-Tac-Toe</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <style>
-      /* Styles CSS pour le jeu */
-    </style>
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic Tac Toe Game</title>
+  <style>
+    #board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      gap: 5px;
+      margin-bottom: 20px;
+    }
+    .cell {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f0f0f0;
+      font-size: 2em;
+      cursor: pointer;
+      border: 1px solid #999;
+    }
+    #message {
+      margin: 10px 0;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tic Tac Toe Game</h1>
+  <div>
+    <button onclick="chooseSymbol('X')">Play as X</button>
+    <button onclick="chooseSymbol('O')">Play as O</button>
+    <select id="difficulty">
+      <option value="easy">Easy</option>
+      <option value="hard">Hard</option>
+    </select>
+  </div>
+  <div id="board"></div>
+  <div id="message"></div>
+  <button id="restartBtn" onclick="startGame()" style="display: none;">Restart Game</button>
 
-  <body>
-    <div id="app">
-      <h1 class="text-3xl font-bold mb-4 text-gray-900">Tic-Tac-Toe</h1>
-      <div id="board" class="grid grid-cols-3 gap-4 mb-4">
-    
-      </div>
-      <div id="scoreboard" class="flex justify-between items-center mb-4">
-        <!-- Players Scores -->
-      </div>
-      <div
-        id="turn-indicator"
-        class="text-2xl font-bold mb-4 text-gray-900"
-      ></div>
-      <button
-        id="reset-button"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Réinitialiser le jeu
-      </button>
-    </div>
+  <script src="script.js">
 
-    <script src="script.js">
-    </script>
-  </body>
+  </script>
+</body>
 </html>
