@@ -82,16 +82,16 @@ const searchInput = document.getElementById("search");
 const displayRobots = (robots) => {
   // If no robots match, show "No Robots Found"
   robots.length === 0
-    ? (robotContainer.innerHTML = `<h2>No Robots Found</h2>`)
+    ? (robotContainer.innerHTML = `<h3>No Robots Found</h3>`)
     : (robotContainer.innerHTML = robots
         .map(
           (robot) => `
-          <div class="robot-card">
+       <div class="robot-card" style="background-image: url('https://raw.githubusercontent.com/devtlv/studentsGitHub/refs/heads/master/JS/Week%204/Day5/Mini%20Projects/Mini%20Project%201%20(Robots)/circuit-pattern.png'); background-size: cover; background-position: center;">
             <img src="${robot.image}" alt="${robot.name}">
             <div class="robot-info">
               <h2>${robot.name}</h2>
-              <p>@${robot.username}</p>
-              <p>${robot.email}</p>
+              <b><p>@${robot.username}</p></b>
+              <b><p>${robot.email}</p></b>
             </div>
           </div>
         `
