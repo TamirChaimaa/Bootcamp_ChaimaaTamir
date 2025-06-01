@@ -1,19 +1,15 @@
-function compareToTen(num) {
-    return new Promise((resolve, reject) => {
-      if (num <= 10) {
-        resolve(`${num} est inférieur ou égal à 10`); // un message de succès
-      } else {
-        reject(`${num} est supérieur à 10`); // un message d'erreur
-      }
-    });
-  }
-  
-  // Test : devrait rejeter
-  compareToTen(15) // 15 est supérieur à 10
-    .then(result => console.log(result)) 
-    .catch(error => console.log(error));
-  
-  // Test : devrait résoudre
-  compareToTen(8) // 8 est inférieur ou égal à 10
-    .then(result => console.log(result))
-    .catch(error => console.log(error));
+const url = "https://api.giphy.com/v1/gifs/search?q=hilarious&rating=g&api_key=hpvZycW22qCjn5cRM1xtWB8NKq4dQ2My";
+
+fetch(url)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log(data); // Logs the entire JS object returned from the API
+  })
+  .catch(error => {
+    console.error('Fetch error:', error);
+  });
