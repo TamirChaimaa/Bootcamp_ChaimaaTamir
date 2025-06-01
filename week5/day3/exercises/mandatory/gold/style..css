@@ -15,6 +15,7 @@
 
 /* Add the dynamic gradient background */
 body {
+  background: linear-gradient(45deg, #ff5c8d, #6a82fb, #fc7a6f);
   background-size: 400% 400%;
   animation: playstation-animation 10s ease infinite;
   color: white;
