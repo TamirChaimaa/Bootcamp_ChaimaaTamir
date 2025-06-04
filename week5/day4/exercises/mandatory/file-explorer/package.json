@@ -1,7 +1,7 @@
 {
-  "name": "npm-beginner",
+  "name": "file-explorer",
   "version": "1.0.0",
-  "description": "npm-beginner",
+  "description": "file-explorer",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^5.4.1",
-    "npm-beginner": "file:"
+    "file-explorer": "file:"
   }
 }
