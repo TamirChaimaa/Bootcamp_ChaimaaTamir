@@ -23,5 +23,5 @@ function getNextHolidayInfo() {
 
   return `Today is ${now.toDateString()}.\nThe next holiday is "${nextHoliday.name}" on ${holidayDate.toDateString()}.\nIt is in ${days} days and ${hours}:${minutes}:${seconds} hours.`;
 }
-
+// ex3/date.js
 module.exports = getNextHolidayInfo;

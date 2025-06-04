@@ -1,5 +1,6 @@
 // ex2/date.js
 const prompt = require('prompt-sync')();
+// ex2/date.js
 
 function getUserBirthdateMinutes() {
   const input = prompt('Enter your birthdate (YYYY-MM-DD): ');
