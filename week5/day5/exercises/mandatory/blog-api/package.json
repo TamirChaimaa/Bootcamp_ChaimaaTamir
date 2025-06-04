@@ -9,9 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "blog-api": "file:",
     "express": "^5.1.0"
   },
-  "devDependencies": {},
   "keywords": [],
   "description": ""
 }
