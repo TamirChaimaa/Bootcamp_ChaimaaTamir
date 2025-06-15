@@ -6,6 +6,7 @@
     "lodash": "^4.17.21",
     "pg": "^8.16.0",
     "prompt-sync": "^4.2.0",
+    "react-responsive-carousel": "^3.2.23",
     "yargs": "^18.0.0"
   },
   "name": "bootcamp_chaimaatamir",
